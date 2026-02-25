@@ -20,7 +20,14 @@
     "healthcheckPath": "/",
     "healthcheckTimeout": 120,
     "restartPolicyType": "ON_FAILURE",
-    "restartPolicyMaxRetries": 3
+    "restartPolicyMaxRetries": 3,
+    "volumes": [
+      {
+        "name": "openinary-db",
+        "mountPath": "/app/data",
+        "description": "Persistent SQLite database — stores admin accounts, API keys and metadata. Required for data to survive redeploys."
+      }
+    ]
   },
   "environments": {
     "production": {

@@ -227,6 +227,30 @@ For production workloads, Railway's persistent volumes keep your data safe acros
 
 ---
 
+## 💾 Persistent Volume (Required)
+
+> ⚠️ **This volume is required.** Without it, your admin account, API keys and all metadata are **wiped on every redeploy**.
+
+| Mount Path | Purpose |
+|---|---|
+| `/app/data` | SQLite database — admin accounts, API keys, metadata |
+
+The `railway.toml` in this repo configures the volume automatically:
+
+```toml
+[[volumes]]
+  name = "openinary-db"
+  mountPath = "/app/data"
+```
+
+If you're deploying manually via the Railway dashboard:
+1. Go to your service → **Volumes** tab
+2. Click **Add Volume**
+3. Set the **Mount Path** to `/app/data`
+4. Save and redeploy
+
+---
+
 ## 📚 Resources
 
 | Link | Description |

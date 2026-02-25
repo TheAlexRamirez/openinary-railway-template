@@ -24,3 +24,14 @@ healthcheckTimeout = 120
 # Restart policy: restart on failure, up to 3 times
 restartPolicyType = "ON_FAILURE"
 restartPolicyMaxRetries = 3
+
+# ============================================================
+# Persistent Volume
+# Stores the SQLite database: admin accounts, API keys, metadata.
+# Without this volume, all data is lost on every redeploy.
+# Railway will create this volume automatically when deploying
+# from the template or via `railway up`.
+# ============================================================
+[[volumes]]
+  name = "openinary-db"
+  mountPath = "/app/data"
