@@ -12,7 +12,7 @@
 
 <p align="center">
   <!-- Railway Deploy -->
-  <a href="https://railway.com/template/cCsRBb" target="_blank" rel="noopener">
+  <a href="https://railway.com/deploy/openinary" target="_blank" rel="noopener">
     <img src="https://railway.com/button.svg" alt="Deploy on Railway" height="36" />
   </a>
 </p>
@@ -57,7 +57,7 @@ Deploy it once on Railway, point it at your S3-compatible bucket, and start tran
 Click the button below to deploy Openinary to Railway in under 2 minutes:
 
 <p>
-  <a href="https://railway.com/template/cCsRBb" target="_blank" rel="noopener">
+  <a href="https://railway.com/deploy/openinary" target="_blank" rel="noopener">
     <img src="https://railway.com/button.svg" alt="Deploy on Railway" height="44" />
   </a>
 </p>
@@ -273,5 +273,5 @@ This **Railway template** is licensed under the [MIT License](LICENSE).
 
 <p align="center">
   Made with ❤️ for the self-hosted community &nbsp;·&nbsp;
-  <a href="https://railway.com/template/cCsRBb">Deploy on Railway</a>
+  <a href="https://railway.com/deploy/openinary">Deploy on Railway</a>
 </p>
