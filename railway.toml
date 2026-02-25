@@ -16,8 +16,10 @@ dockerfilePath = "Dockerfile"
 numReplicas = 1
 
 # Health check — Railway hits this path and expects a 2xx response.
-# Give 5 minutes for supervisord to bring up Nginx + API + Web UI.
-healthcheckPath = "/"
+# We use /login because it's a public Next.js page (always 200).
+# Do NOT use "/" — Next.js middleware redirects unauthenticated users
+# to /login with 307, which Railway interprets as a healthcheck failure.
+healthcheckPath = "/login"
 healthcheckTimeout = 300
 
 # Restart policy: restart on failure, up to 3 times
