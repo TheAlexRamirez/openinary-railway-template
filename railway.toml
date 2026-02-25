@@ -1,0 +1,26 @@
+# ============================================================
+# Openinary Railway Template - Deploy Configuration
+# https://docs.railway.com/reference/config-as-code
+# ============================================================
+
+[build]
+# Use Dockerfile as the build source
+builder = "DOCKERFILE"
+dockerfilePath = "Dockerfile"
+
+[deploy]
+# Start command inside the container
+startCommand = "/bin/sh -c \". /app/scripts/init-env-wrapper.sh && cd /app && node scripts/secure-db.js && exec /usr/bin/supervisord -c /etc/supervisor/conf.d/supervisord.conf\""
+
+# Port Railway will route public traffic to
+numReplicas = 1
+
+# Health check — Railway considers the service healthy when this path returns 2xx
+healthcheckPath = "/"
+
+# Allow 2 minutes for the container to start (image pull + FFmpeg init can be slow)
+healthcheckTimeout = 120
+
+# Restart policy: restart on failure, up to 3 times
+restartPolicyType = "ON_FAILURE"
+restartPolicyMaxRetries = 3

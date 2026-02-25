@@ -1,0 +1,104 @@
+{
+  "$schema": "https://backboard.railway.app/railway.schema.json",
+  "version": 2,
+  "project": {
+    "name": "Openinary",
+    "description": "Self-hostable, open-source alternative to Cloudinary. On-the-fly image & video transformations with S3-compatible storage.",
+    "tags": [
+      "media",
+      "image-processing",
+      "video-processing",
+      "s3",
+      "cloudinary-alternative",
+      "self-hosted",
+      "docker",
+      "typescript"
+    ]
+  },
+  "deploy": {
+    "startCommand": "/bin/sh -c \". /app/scripts/init-env-wrapper.sh && cd /app && node scripts/secure-db.js && exec /usr/bin/supervisord -c /etc/supervisor/conf.d/supervisord.conf\"",
+    "healthcheckPath": "/",
+    "healthcheckTimeout": 120,
+    "restartPolicyType": "ON_FAILURE",
+    "restartPolicyMaxRetries": 3
+  },
+  "environments": {
+    "production": {
+      "variables": {
+
+        "SERVER__PORT": {
+          "description": "Port the Nginx reverse proxy listens on inside the container.",
+          "value": "3000"
+        },
+        "NODE_ENV": {
+          "description": "Node.js runtime environment. Keep this as 'production'.",
+          "value": "production"
+        },
+        "IMAGE_TAG": {
+          "description": "Openinary Docker image version to use. See https://github.com/openinary/openinary/releases",
+          "value": "latest"
+        },
+
+        "BETTER_AUTH_SECRET": {
+          "description": "Secret key used to sign authentication tokens. Generate one with: openssl rand -base64 32",
+          "value": ""
+        },
+        "BETTER_AUTH_URL": {
+          "description": "The public URL of your Openinary instance (e.g. https://openinary.up.railway.app). Used for CORS and auth redirects.",
+          "value": ""
+        },
+
+        "STORAGE_REGION": {
+          "description": "S3-compatible storage region (e.g. us-east-1 for AWS, auto for Cloudflare R2).",
+          "value": ""
+        },
+        "STORAGE_ACCESS_KEY_ID": {
+          "description": "S3 Access Key ID from your storage provider.",
+          "value": ""
+        },
+        "STORAGE_SECRET_ACCESS_KEY": {
+          "description": "S3 Secret Access Key from your storage provider.",
+          "value": ""
+        },
+        "STORAGE_BUCKET_NAME": {
+          "description": "Name of the S3 bucket where media files will be stored.",
+          "value": ""
+        },
+        "STORAGE_ENDPOINT": {
+          "description": "S3-compatible endpoint URL. Required for non-AWS providers (Cloudflare R2, Wasabi, MinIO, DigitalOcean Spaces, etc.).",
+          "value": ""
+        },
+        "STORAGE_PUBLIC_URL": {
+          "description": "Public base URL used to serve stored files (e.g. your CDN or bucket public URL).",
+          "value": ""
+        },
+
+        "VIDEO_MAX_CONCURRENT": {
+          "description": "Number of concurrent video processing jobs. Auto-detected from available RAM (1 worker per 2GB) if left empty.",
+          "value": ""
+        },
+        "VIDEO_JOB_RETRY_MAX": {
+          "description": "Maximum number of retry attempts for a failed video processing job.",
+          "value": "3"
+        },
+        "VIDEO_JOB_CLEANUP_HOURS": {
+          "description": "Hours after which completed video jobs are removed from the queue.",
+          "value": "24"
+        },
+        "VIDEO_WORKER_POLL_INTERVAL_MS": {
+          "description": "Polling interval in milliseconds for the video processing worker queue.",
+          "value": "1000"
+        },
+
+        "DOCKER_CPU_LIMIT": {
+          "description": "Maximum CPU cores available to the container. Increase for better video processing throughput.",
+          "value": "2.0"
+        },
+        "DOCKER_MEMORY_LIMIT": {
+          "description": "Maximum memory available to the container (e.g. 2048m, 4G, 12G).",
+          "value": "4G"
+        }
+      }
+    }
+  }
+}
