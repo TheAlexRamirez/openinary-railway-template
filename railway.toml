@@ -9,17 +9,16 @@ builder = "DOCKERFILE"
 dockerfilePath = "Dockerfile"
 
 [deploy]
-# Start command inside the container
-startCommand = "/bin/sh -c \". /app/scripts/init-env-wrapper.sh && cd /app && node scripts/secure-db.js && exec /usr/bin/supervisord -c /etc/supervisor/conf.d/supervisord.conf\""
+# No startCommand — the base image (openinary/openinary) handles its own CMD.
+# Overriding CMD caused conflicts with supervisord startup.
 
-# Port Railway will route public traffic to
+# Number of replicas
 numReplicas = 1
 
-# Health check — Railway considers the service healthy when this path returns 2xx
+# Health check — Railway hits this path and expects a 2xx response.
+# Give 5 minutes for supervisord to bring up Nginx + API + Web UI.
 healthcheckPath = "/"
-
-# Allow 2 minutes for the container to start (image pull + FFmpeg init can be slow)
-healthcheckTimeout = 120
+healthcheckTimeout = 300
 
 # Restart policy: restart on failure, up to 3 times
 restartPolicyType = "ON_FAILURE"
@@ -29,8 +28,6 @@ restartPolicyMaxRetries = 3
 # Persistent Volume
 # Stores the SQLite database: admin accounts, API keys, metadata.
 # Without this volume, all data is lost on every redeploy.
-# Railway will create this volume automatically when deploying
-# from the template or via `railway up`.
 # ============================================================
 [[volumes]]
   name = "openinary-db"
