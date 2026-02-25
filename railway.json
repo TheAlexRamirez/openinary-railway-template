@@ -32,8 +32,8 @@
     "production": {
       "variables": {
 
-        "SERVER__PORT": {
-          "description": "Port the Nginx reverse proxy listens on inside the container.",
+        "PORT": {
+          "description": "Port Railway routes external traffic to. Must match the port Nginx listens on (3000). Do not change this value.",
           "value": "3000"
         },
         "NODE_ENV": {
