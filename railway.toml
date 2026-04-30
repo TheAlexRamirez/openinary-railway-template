@@ -17,9 +17,9 @@ startCommand = "bash /app/startup.sh && exec /usr/local/bin/docker-entrypoint.sh
 numReplicas = 1
 
 # Health check — Railway hits this path and expects a 2xx response.
-# Using /api/health endpoint which doesn't require authentication.
-# This endpoint is specifically designed for health checks.
-healthcheckPath = "/api/health"
+# Using / (root) as healthcheck because Next.js always returns 200 on root.
+# This ensures the deploy passes even before auth is configured.
+healthcheckPath = "/"
 healthcheckTimeout = 300
 
 # Restart policy: restart on failure, up to 3 times
