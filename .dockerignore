@@ -1,0 +1,8 @@
+# Ignore everything by default
+*
+
+# Only allow specific files needed for the build
+!startup.sh
+
+# The Dockerfile should be in the root and named exactly "Dockerfile"
+# (which Docker automatically looks for, so no need to copy it)

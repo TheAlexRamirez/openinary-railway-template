@@ -32,6 +32,8 @@
   </a>
 </p>
 
+> **📦 Last version tested**: [v0.1.8](https://github.com/openinary/openinary/releases/tag/v0.1.8) (April 12, 2026)
+
 ---
 
 ## ✨ What is Openinary?
@@ -182,8 +184,8 @@ STORAGE_PUBLIC_URL=https://your-cdn-or-bucket-url.com
 
 | Variable | Required | Description |
 |---|---|---|
-| `BETTER_AUTH_SECRET` | ✅ Yes | Secret key for auth tokens. Generate: `openssl rand -base64 32` |
-| `BETTER_AUTH_URL` | ✅ Yes | Your public instance URL (e.g. `https://openinary.up.railway.app`) |
+| `BETTER_AUTH_SECRET` | ⚡ Auto | 🔐 Secret for auth tokens. **Auto-generated if empty.** Manual: `openssl rand -base64 32` |
+| `BETTER_AUTH_URL` | ⚡ Auto | 🔗 Your public URL. **Auto-configured from Railway's domain** if empty. |
 
 ### 🪣 Storage (S3-compatible)
 
@@ -260,6 +262,16 @@ If you're deploying manually via the Railway dashboard:
 | [🐳 Docker Hub](https://hub.docker.com/r/openinary/openinary) | Official Docker image |
 | [🚂 Railway Docs](https://docs.railway.com) | Railway platform docs |
 | [🐦 Twitter / X](https://x.com/initflorian) | Updates from the creator |
+
+---
+
+## 🏷️ Supported Docker Version
+
+This template is **tested and verified** with **openinary/openinary:v0.1.8** (April 12, 2026).
+
+📦 [Release Notes](https://github.com/openinary/openinary/releases/tag/v0.1.8) · [All Releases](https://github.com/openinary/openinary/releases)
+
+> ⚠️ To update to a newer version: check the [releases page](https://github.com/openinary/openinary/releases) and update `IMAGE_TAG` in `railway.json`.
 
 ---
 

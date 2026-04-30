@@ -9,17 +9,17 @@ builder = "DOCKERFILE"
 dockerfilePath = "Dockerfile"
 
 [deploy]
-# No startCommand — the base image (openinary/openinary) handles its own CMD.
-# Overriding CMD caused conflicts with supervisord startup.
+# Custom startup command that generates missing secrets and waits for services to be ready.
+# This runs AFTER Railway has injected environment variables from railway.json.
+startCommand = "bash /app/startup.sh"
 
 # Number of replicas
 numReplicas = 1
 
 # Health check — Railway hits this path and expects a 2xx response.
-# We use /login because it's a public Next.js page (always 200).
-# Do NOT use "/" — Next.js middleware redirects unauthenticated users
-# to /login with 307, which Railway interprets as a healthcheck failure.
-healthcheckPath = "/login"
+# Using /api/health endpoint which doesn't require authentication.
+# This endpoint is specifically designed for health checks.
+healthcheckPath = "/api/health"
 healthcheckTimeout = 300
 
 # Restart policy: restart on failure, up to 3 times
