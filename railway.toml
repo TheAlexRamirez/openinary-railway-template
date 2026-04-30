@@ -9,9 +9,9 @@ builder = "DOCKERFILE"
 dockerfilePath = "Dockerfile"
 
 [deploy]
-# Custom startup command that generates missing secrets and waits for services to be ready.
-# This runs AFTER Railway has injected environment variables from railway.json.
-startCommand = "bash /app/startup.sh"
+# The base image's CMD handles service startup (via supervisord).
+# We run startup.sh first to set up environment, then exec the original CMD.
+startCommand = "bash /app/startup.sh && exec /usr/local/bin/docker-entrypoint.sh"
 
 # Number of replicas
 numReplicas = 1

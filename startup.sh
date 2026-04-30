@@ -1,11 +1,9 @@
 #!/bin/bash
 # ============================================================
 # Openinary Startup Script
-# Handles automatic secret generation and service initialization
-# This script runs before the main supervisord process starts
+# Handles automatic secret generation and waits for services to be ready
+# This script runs before the main process starts
 # ============================================================
-
-set -e
 
 echo "=== Openinary Startup Script ==="
 echo "Starting at $(date)"
@@ -15,7 +13,13 @@ echo "Starting at $(date)"
 # ============================================================
 if [ -z "$BETTER_AUTH_SECRET" ]; then
     echo "BETTER_AUTH_SECRET not provided. Generating..."
-    export BETTER_AUTH_SECRET=$(openssl rand -base64 32)
+    # Use /dev/urandom as fallback if openssl is not available
+    if command -v openssl &> /dev/null; then
+        export BETTER_AUTH_SECRET=$(openssl rand -base64 32)
+    else
+        # Fallback using /dev/urandom and base64
+        export BETTER_AUTH_SECRET=$(head -c 32 /dev/urandom | base64)
+    fi
     echo "BETTER_AUTH_SECRET generated successfully"
 else
     echo "BETTER_AUTH_SECRET already set (length: ${#BETTER_AUTH_SECRET})"
@@ -47,15 +51,7 @@ mkdir -p /app/data
 chmod 755 /app/data
 
 # ============================================================
-# 4. Wait for services to be ready
-# ============================================================
-echo "Waiting for services to initialize..."
-
-# Give supervisord a moment to start the services
-sleep 3
-
-# ============================================================
-# 5. Print final configuration
+# 4. Print final configuration
 # ============================================================
 echo ""
 echo "=== Final Configuration ==="
@@ -66,10 +62,10 @@ echo "BETTER_AUTH_URL: $BETTER_AUTH_URL"
 echo "BETTER_AUTH_SECRET: [${BETTER_AUTH_SECRET:0:8}...] (truncated for security)"
 echo "RAILWAY_PUBLIC_DOMAIN: ${RAILWAY_PUBLIC_DOMAIN:-not set}"
 echo ""
-echo "=== Starting supervisord (main process) ==="
+echo "=== Startup complete, continuing with main process ==="
 
 # ============================================================
-# 6. Execute the original CMD via supervisord
-# The base image uses supervisord to manage nginx, api, and web
+# 5. Exit successfully - let the main process continue
+# The original CMD from the base image will handle service startup
 # ============================================================
-exec /usr/bin/supervisord -c /etc/supervisord.conf
+exit 0
