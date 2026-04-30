@@ -17,6 +17,8 @@
   </a>
 </p>
 
+> **📦 Last version tested**: [v0.1.8](https://github.com/openinary/openinary/releases/tag/v0.1.8) (April 12, 2026)
+
 <p align="center">
   <a href="https://github.com/openinary/openinary/actions/workflows/basebuild.yml" target="_blank" rel="noopener">
     <img src="https://github.com/openinary/openinary/actions/workflows/basebuild.yml/badge.svg" alt="Build Status" />
@@ -31,8 +33,6 @@
     <img src="https://img.shields.io/badge/docs-openinary.dev-7C3AED?logo=gitbook" alt="Documentation" />
   </a>
 </p>
-
-> **📦 Last version tested**: [v0.1.8](https://github.com/openinary/openinary/releases/tag/v0.1.8) (April 12, 2026)
 
 ---
 
@@ -178,7 +178,7 @@ STORAGE_PUBLIC_URL=https://your-cdn-or-bucket-url.com
 | Variable | Default | Description |
 |---|---|---|
 | `NODE_ENV` | `production` | Node.js runtime mode. Keep as `production`. |
-| `IMAGE_TAG` | `latest` | Openinary Docker image version. |
+| `IMAGE_TAG` | `v0.1.8` | Openinary Docker image version. Update in Dockerfile `ARG IMAGE_TAG`. |
 
 ### 🔐 Authentication
 
@@ -271,7 +271,7 @@ This template is **tested and verified** with **openinary/openinary:v0.1.8** (Ap
 
 📦 [Release Notes](https://github.com/openinary/openinary/releases/tag/v0.1.8) · [All Releases](https://github.com/openinary/openinary/releases)
 
-> ⚠️ To update to a newer version: check the [releases page](https://github.com/openinary/openinary/releases) and update `IMAGE_TAG` in `railway.json`.
+> ⚠️ To update to a newer version: check the [releases page](https://github.com/openinary/openinary/releases) and update `ARG IMAGE_TAG` in `Dockerfile`.
 
 ---
 
